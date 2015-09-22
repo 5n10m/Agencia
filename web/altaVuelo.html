@@ -6,11 +6,73 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Nou Vol</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <div>TODO write content</div>
+        <h1>Alta Vol</h1>
+        &nbsp; <br>
+        <form action="/cgi-bin/new.py" method="GET">
+            <table summary="">
+                <tr>
+                    <td>Nº vol:</td>
+                    <td><input name=numero_vol size=6 maxlength=6 value="000000"></td>
+                    <td>Companyia:</td>
+                    <td><select name=companyia>
+                            <option selected VALUE=Iberia>Iberia
+                            <option VALUE=Vueling>Vueling
+                            <option VALUE=Ryanair>Ryanair
+                            <option VALUE=AirFrance>AirFrance
+                            <option VALUE=AirEuropa>AirEuropa
+                            <option VALUE=Lufthansa>Lufthansa
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Origen:</td>
+                    <td><select name=origen>
+                            <option selected VALUE=Barcelona>Barcelona
+                            <option VALUE=Madrid>Madrid
+                            <option VALUE=Bilbao>Bilbao
+                            <option VALUE=Paris>Paris
+                            <option VALUE=Roma>Roma
+                            <option VALUE=Frankfurt>Frankfurt
+                            <option VALUE=Berlin>Berlin
+                            <option VALUE=Londres>Londres
+                            <option VALUE=Dublin>Dublin
+                            <option VALUE=Berna>Berna
+                            <option VALUE=Andorra>Andorra
+                        </select>
+                    </td>
+                    <td>Hora Sortida:</td>
+                    <td><input name=hora_sortida size=2 maxlength=2 value=12>H</td>
+                </tr>
+                <tr>
+                    <td>Destí:</td>
+                    <td><select name=origen>
+                            <option selected VALUE=Barcelona>Barcelona
+                            <option VALUE=Madrid>Madrid
+                            <option VALUE=Bilbao>Bilbao
+                            <option VALUE=Paris>Paris
+                            <option VALUE=Roma>Roma
+                            <option VALUE=Frankfurt>Frankfurt
+                            <option VALUE=Berlin>Berlin
+                            <option VALUE=Londres>Londres
+                            <option VALUE=Dublin>Dublin
+                            <option VALUE=Berna>Berna
+                            <option VALUE=Andorra>Andorra
+                        </select>
+                    </td>
+                    <td>Hora Arribada:</td>
+                    <td><input name=hora_arribada size=2 maxlength=2 value=12>H</td>
+                </tr>                
+            </table>
+            &nbsp; <br>
+            <input name=registrar type=submit value="Registra">
+            <br>
+        </form>
+        &nbsp; <br>
+        <a href="menu.html">Menu</a>
     </body>
 </html>

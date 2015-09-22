@@ -6,11 +6,25 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Login Agencia viatges</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        <div>TODO write content</div>
+<body>
+    <h1>Introdueix les credencials</h1>
+    <form action="login" method="POST">
+        <table summary="">
+            <tr>
+            <td>UserId:<td>
+                <input name=userid size=16 maxlength=16>
+            </tr><tr>
+            <td>Password:<td>
+                <input type="password" name="password" size="16" maxlength="16">
+            </tr>
+        </table>
+    <br>
+    <input name=accedeix type=submit value="accedeix">
+    <br>
+    </form>
     </body>
 </html>

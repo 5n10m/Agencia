@@ -6,11 +6,61 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <title>Nou Hotel</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
-    <body>
-        <div>TODO write content</div>
+    <h1>Nou hotel</h1>
+        &nbsp; <br>
+        <form action="altaHotel" method="GET">
+            <table summary="">
+                <tr>
+                    <td>Nom del hotel:</td>
+                    <td><input name=nom_hotel size=6 maxlength=6 value="NomHotel"></td>
+                    <td>Cadena hotelera:</td>
+                    <td><select name=companyia>
+                            <option selected VALUE=NH>NH
+                            <option VALUE=Iberostar>Iberostar
+                            <option VALUE=Sercotel>Sercotel
+                            <option VALUE=Husa>Husa
+                            <option VALUE=SolMelia>SolMelia
+                            <option VALUE=Accord>Accord
+                            <option VALUE=Hesperia>Hesperia
+                            <option VALUE=Silken>Silken
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><u>Adreça</u></td>
+                </tr>
+                <tr> 
+                    <td>Carrer:</td>
+                    <td><input name=carrer size=20 maxlength=20 value="NouCarrer"></td>
+                    <td>Número:</td>
+                    <td><input name=numero size=6 maxlength=6 value=77></td>
+                </tr>
+                <tr> 
+                    <td>CP:</td>
+                    <td><input name=codi_postal size=5 maxlength=5 value="08880"></td>
+                    <td>Ciutat:</td>
+                    <td><input name=ciutat size=6 maxlength=6 value="Barcelona"></td>
+                </tr>
+                <tr> 
+                    <td>Provincia:</td>
+                    <td><input name=codi_postal size=20 maxlength=20 value="Barcelona"></td>
+                    <td>Pais:</td>
+                    <td><input name=pais size=20 maxlength=20 value="Espanya"></td>
+                </tr> 
+                <tr>
+                    <td>Numero d'habitacions:</td>
+                    <td><input name=num_habitacions size=5 maxlength=5 value="50"></td>
+                </tr>
+            </table>
+            &nbsp; <br>
+            <input name=registrar type=submit value="Registra">
+            <br>
+        </form>
+        &nbsp; <br>
+        <a href="menu.html">Menu</a>
     </body>
 </html>

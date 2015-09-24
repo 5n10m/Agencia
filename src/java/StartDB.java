@@ -44,17 +44,26 @@ public class StartDB extends HttpServlet {
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
         try{
+            //"+System.getProperty("user.dir")+"
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
             
             String query= "CREATE TABLE usuaris " +
-                   "(user INT PRIMARY KEY     NOT NULL," +
-                   " password       TEXT    NOT NULL, "; 
-            ResultSet rs = statement.executeQuery("select * from usuaris where user = \""+ request.getParameter("userid") +"\" and  password = \""+ request.getParameter("password") +"\"");
-            while(rs.next()){
-                // read the result set
-                out.println("<p>user = " + rs.getString("user")+" passwd = " + rs.getString("password")+ "</p>" );
-            }
+                   "(user TEXT PRIMARY KEY     NOT NULL," +
+                   " password          TEXT    NOT NULL);"; 
+           statement.executeUpdate(query);
+           query = "CREATE TABLE hotels " +
+                   "(nom TEXT PRIMARY KEY     NOT NULL," +
+                   " cadena           TEXT    NOT NULL, " +
+                   " carrer           TEXT    NOT NULL, " +
+                   " numero           TEXT    NOT NULL, " +
+                   " cp               TEXT    NOT NULL, " +
+                   " ciutat           TEXT    NOT NULL, "+
+                   " provincia        TEXT    NOT NULL, " +
+                   " pais             TEXT    NOT NULL, " +
+                   " numero_habitacions TEXT    NOT NULL );";
+            statement.executeUpdate(query);
+            
             out.println("<p> Login correcte <p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);

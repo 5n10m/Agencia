@@ -34,7 +34,7 @@
                     <td>Companyia:</td>
                     <td><select name=companyia>
                     <%
-                        Class.forName("org.sqlite.JDBC");
+        Class.forName("org.sqlite.JDBC");
         Connection connection = null;
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");

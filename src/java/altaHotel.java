@@ -46,18 +46,18 @@ public class altaHotel extends HttpServlet {
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            String update = "insert into hotels values ("+ 
-                    request.getParameter("nom_hotel") +","+
-                    request.getParameter("companyia") +","+
-                    request.getParameter("carrer") +","+
-                    request.getParameter("numero") +","+
-                    request.getParameter("codi_postal") +","+
-                    request.getParameter("ciutat") +","+
-                    request.getParameter("provincia") +","+
-                    request.getParameter("pais") +";"+
-                    request.getParameter("num_habitacions") +","+
-                    request.getParameter("clase")+");";
-            ResultSet rs = statement.executeQuery(update);
+            String update = "insert into hotels values ( '"+ 
+                    request.getParameter("nom_hotel") +"','"+
+                    request.getParameter("companyia") +"','"+
+                    request.getParameter("carrer") +"','"+
+                    request.getParameter("numero") +"','"+
+                    request.getParameter("codi_postal") +"','"+
+                    request.getParameter("ciutat") +"','"+
+                    request.getParameter("provincia") +"','"+
+                    request.getParameter("pais") +"','"+
+                    request.getParameter("num_habitacions") +"','"+
+                    request.getParameter("clase")+"');";
+            statement.executeUpdate(update);
             
             out.println("<p> Hotel afegit amb exit <p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");

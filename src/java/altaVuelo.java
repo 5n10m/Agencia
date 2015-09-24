@@ -6,6 +6,13 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,19 +36,41 @@ public class altaVuelo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet altaVuelo</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet altaVuelo at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        /* TODO output your page here. You may use following sample code. */
+        Class.forName("org.sqlite.JDBC");
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            Statement statement = connection.createStatement();
+            String update = "insert into hotels values ( '"+ 
+                    request.getParameter("numero_vol") +"','"+
+                    request.getParameter("companyia") +"','"+
+                    request.getParameter("origen") +"','"+
+                    request.getParameter("hora_sortida") +"','"+                    
+                    request.getParameter("desti") +"','"+
+                    request.getParameter("hora_arribada")+"');";
+            statement.executeUpdate(update);
+            
+            out.println("<p> Vol afegit amb exit <p>");
+            RequestDispatcher rd = request.getRequestDispatcher("menu.html");
+            rd.include(request, response);
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        finally{
+            try{
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
         }
     }
 
@@ -57,7 +86,11 @@ public class altaVuelo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(altaVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +104,11 @@ public class altaVuelo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(altaVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -63,6 +63,33 @@ public class StartDB extends HttpServlet {
                    " pais             TEXT    NOT NULL, " +
                    " numero_habitacions TEXT    NOT NULL );";
             statement.executeUpdate(query);
+            /**
+             * CREATE TABLE hotels 
+                   (nom TEXT PRIMARY KEY     NOT NULL,
+                   cadena           TEXT    NOT NULL, 
+                   carrer           TEXT    NOT NULL, 
+                   numero           TEXT    NOT NULL, 
+                   cp               TEXT    NOT NULL, 
+                   ciutat           TEXT    NOT NULL,
+                   provincia        TEXT    NOT NULL, 
+                   pais             TEXT    NOT NULL, 
+                   numero_habitacions TEXT    NOT NULL,
+                   estrelles TEXT NOT NULL)
+             */
+            /**
+             * CREATE TABLE usuaris 
+                  ( user TEXT PRIMARY KEY     NOT NULL,
+                    password          TEXT    NOT NULL)
+             */
+            /**
+             * CREATE TABLE vols
+                  ( numero    TEXT PRIMARY KEY     NOT NULL,
+                    companyia             TEXT     NOT NULL,
+                    origen                TEXT     NOT NULL,
+                    hora_sortida          TEXT     NOT NULL,
+                    desti                 TEXT     NOT NULL,
+                    hora_arribada         TEXT     NOT NULL)
+             */
             
             out.println("<p> Login correcte <p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");

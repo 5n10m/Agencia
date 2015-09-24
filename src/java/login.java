@@ -1,8 +1,8 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
+*/
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,7 +22,7 @@ import javax.servlet.RequestDispatcher;
  */
 @WebServlet(urlPatterns = {"/login"})
 public class login extends HttpServlet {
-
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,43 +31,43 @@ public class login extends HttpServlet {
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
+     * @throws java.lang.ClassNotFoundException
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-            /* TODO output your page here. You may use following sample code. */
-            Class.forName("org.sqlite.JDBC");
-            Connection connection = null;
-            try{
-                connection = DriverManager.getConnection("jdbc:sqlite:C:\\<CHANGE PATH HERE>\\exemple.db");
-                Statement statement = connection.createStatement();
-                ResultSet rs = statement.executeQuery("select * from usuarios");
+        /* TODO output your page here. You may use following sample code. */
+        Class.forName("org.sqlite.JDBC");
+        Connection connection = null;
+        try{
+            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            Statement statement = connection.createStatement();
+            ResultSet rs = statement.executeQuery("select * from usuaris where user = \""+ request.getParameter("userid") +"\" and  password = \""+ request.getParameter("password") +"\"");
+            while(rs.next()){
+                // read the result set
+                out.println("<p>user = " + rs.getString("user")+" passwd = " + rs.getString("password")+ "</p>" );
             }
-            catch(SQLException e){
-                System.err.println(e.getMessage());
-            }
-            finally{
-                try{
-                    if(connection != null)
-                        connection.close();
-                }
-                catch(SQLException e)
-                {
-                    // connection close failed.
-                    System.err.println(e.getMessage());
-                }
-            }      
-            
-            
-            
             out.println("<p> Login correcte <p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
-            
-        
+        }
+        catch(SQLException e){
+            System.err.println(e.getMessage());
+        }
+        finally{
+            try{
+                if(connection != null)
+                    connection.close();
+            }
+            catch(SQLException e)
+            {
+                // connection close failed.
+                System.err.println(e.getMessage());
+            }
+        }     
     }
-
+    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -86,7 +86,7 @@ public class login extends HttpServlet {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -104,7 +104,7 @@ public class login extends HttpServlet {
             Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     /**
      * Returns a short description of the servlet.
      *
@@ -114,5 +114,5 @@ public class login extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
 }

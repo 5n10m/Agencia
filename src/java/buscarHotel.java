@@ -45,14 +45,23 @@ public class buscarHotel extends HttpServlet {
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
             String query = "select * from hotels where ";
-            if(!request.getParameter("nom_hotel").isEmpty()){
-                query = query +"nom = \""+ request.getParameter("nom_hotel")+"\",";
+            
+            String p = request.getParameter("nom_hotel");
+            out.println(p);
+            if(!p.isEmpty()){
+                query = query +"nom = \""+ p +"\",";
             }
-            if(!"Qualsevol".equals(request.getParameter("companyia"))){
-                query = query + "cadena = \""+ request.getParameter("companyia")+"\",";
+            
+            p = request.getParameter("companyia");
+            out.println(p);
+            if(!"Qualsevol".equals(p)){
+                query = query + "cadena = \""+ p +"\",";
             }
-            if(!"Qualsevol".equals(request.getParameter("ciutat"))){
-                query = query + "ciutat = \""+ request.getParameter("ciutat")+"\",";
+            
+            p = request.getParameter("ciutat");
+            out.println(p);
+            if(!"Qualsevol".equals(p)){
+                query = query + "ciutat = \""+ p +"\",";
             }
             
             out.println("<html>");

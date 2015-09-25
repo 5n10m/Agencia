@@ -62,6 +62,7 @@ public class altaHotel extends HttpServlet {
             out.println("<p> Hotel afegit amb exit <p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
+            connection.close();
         }
         catch(SQLException e){
             System.err.println(e.getMessage());

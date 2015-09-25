@@ -33,6 +33,7 @@
                     <td><input name=numero_vol size=6 maxlength=6 value="000000"></td>
                     <td>Companyia:</td>
                     <td><select name=companyia>
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
                     <%
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
@@ -42,7 +43,7 @@
             ResultSet rs = statement.executeQuery("select distinct companyia from vols");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("companyia"); %> > <% rs.getString("companyia");
+                %>  <option VALUE= <% rs.getString("companyia"); %> > <% out.print(rs.getString("companyia"));%> </option>    <%
             }
                     %>    
                         </select>
@@ -51,10 +52,11 @@
                 <tr>
                     <td>Origen:</td>
                     <td><select name=origen>
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
                 <% rs = statement.executeQuery("select distinct origen from vols");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("origen"); %> > <% rs.getString("origen");
+                %>  <option VALUE= "<% rs.getString("origen"); %>" > <% out.print(rs.getString("origen"));%> </option>    <%
             }
                     %>
                         </select>
@@ -65,10 +67,11 @@
                 <tr>
                     <td>Destí:</td>
                     <td><select name=desti>
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
                            <% rs = statement.executeQuery("select distinct desti from vols");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("desti"); %> > <% rs.getString("desti");
+                %>  <option VALUE= <% rs.getString("desti"); %> > <% out.print(rs.getString("desti"));%> </option>    <%
             }
                     %>
                         </select>
@@ -83,6 +86,7 @@
         </form>
     </body>
     <% 
+            connection.close();
       }
         catch(SQLException e){
             System.err.println(e.getMessage());

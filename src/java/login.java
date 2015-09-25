@@ -44,6 +44,9 @@ public class login extends HttpServlet {
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
             ResultSet rs = statement.executeQuery("select count (*) as total from usuaris where user = \""+ request.getParameter("userid") +"\" and  password = \""+ request.getParameter("password") +"\"");
+            
+            //.println(rs.getStatement());
+            
             if("1".equals(rs.getString("total"))){
                 out.println("<p> Login correcte <p>");
                 RequestDispatcher rd = request.getRequestDispatcher("menu.html");
@@ -54,6 +57,7 @@ public class login extends HttpServlet {
                 RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.include(request, response);
             }
+            connection.close();
         }
         catch(SQLException e){
             System.err.println(e.getMessage());

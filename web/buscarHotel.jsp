@@ -32,6 +32,7 @@
                     <td><input name=nom_hotel size=20 maxlength=20 value="NomHotel"></td>
                     <td>Cadena hotelera:</td>
                     <td><select name=companyia>
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
 <%
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
@@ -41,27 +42,28 @@
             ResultSet rs = statement.executeQuery("select distinct cadena as busca from hotels");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("busca"); %> > <% rs.getString("busca");
+                %>  <option VALUE= <% rs.getString("busca"); %> > <% out.print(rs.getString("busca"));%> </option>    <%
             }
 %>    
                         </select>
-<p><% rs.getString("cadena");  %></p>
                     </td>
                 </tr>
                 <tr>
                     <td>Ciutat:</td>
-                    <td><select name=companyia>
+                    <td><select name=ciutat>
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
 <% 
             rs = statement.executeQuery("select distinct ciutat as busca from hotels");
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("busca"); %> > <% rs.getString("busca");
+                %>  <option VALUE= <% rs.getString("busca"); %> > <% out.print(rs.getString("busca"));%> </option>    <%
             }
 %>
                         </select>
                     </td>
                     <td>Estrelles:</td>
                     <td><select name=clase>
-                            <option selected VALUE=1>*
+                            <option selected VALUE=Qualsevol> Qualsevol</option>
+                            <option VALUE=1>*
                             <option VALUE=2>**
                             <option VALUE=3>***
                             <option VALUE=4>****
@@ -71,13 +73,14 @@
                 </tr>
             </table>
             &nbsp; <br>
-            <input name=registrar type=submit value="Registra">
+            <input name=Busca type=submit value="Busca">
             <br>
         </form>
         &nbsp; <br>
         <a href="menu.html">Menu</a>
     </body>
      <% 
+            connection.close();
       }
         catch(SQLException e){
             System.err.println(e.getMessage());

@@ -38,22 +38,23 @@
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select distinct cadena from hotels");
+            ResultSet rs = statement.executeQuery("select distinct cadena as busca from hotels");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("cadena"); %> > <% rs.getString("cadena");
+                %>  <option VALUE= <% rs.getString("busca"); %> > <% rs.getString("busca");
             }
 %>    
                         </select>
+<p><% rs.getString("cadena");  %></p>
                     </td>
                 </tr>
                 <tr>
                     <td>Ciutat:</td>
                     <td><select name=companyia>
 <% 
-            rs = statement.executeQuery("select distinct ciutat from hotels");
+            rs = statement.executeQuery("select distinct ciutat as busca from hotels");
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("ciutat"); %> > <% rs.getString("ciutat");
+                %>  <option VALUE= <% rs.getString("busca"); %> > <% rs.getString("busca");
             }
 %>
                         </select>

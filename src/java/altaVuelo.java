@@ -45,7 +45,8 @@ public class altaVuelo extends HttpServlet {
         try{
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            String update = "insert into hotels values ( '"+ 
+            String update = "insert into vols"
+                    + " values ( '"+ 
                     request.getParameter("numero_vol") +"','"+
                     request.getParameter("companyia") +"','"+
                     request.getParameter("origen") +"','"+

@@ -73,6 +73,7 @@
                 </tr>
             </table>
             &nbsp; <br>
+            <input name=Busca type=submit value="Busca">
             <br>
         </form>
         &nbsp; <br>

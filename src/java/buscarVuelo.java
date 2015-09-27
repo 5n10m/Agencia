@@ -48,11 +48,11 @@ public class buscarVuelo extends HttpServlet {
             
             Boolean parametre = false; 
             
-            String p = request.getParameter("nom_hotel");
+            String p = request.getParameter("numero_vol");
             out.println(p);
             if(!p.isEmpty()){
                 if(!parametre) query = query +" where ";
-                query = query +"nom = \""+ p +"\"";
+                query = query +"numero = \""+ p +"\"";
                 parametre = true;
             }
             
@@ -65,19 +65,35 @@ public class buscarVuelo extends HttpServlet {
                 
             }
             
-            p = request.getParameter("ciutat");
+            p = request.getParameter("origen");
             if(!"Qualsevol".equals(p)){
                 if(!parametre) query = query +" where ";
                 else query = query + " and ";
-                query = query + "ciutat = \""+ p +"\"";
+                query = query + "origen = \""+ p +"\"";
                 parametre = true;
             }
             
-            p = request.getParameter("clase");
+            p = request.getParameter("hora_sortida");
+            out.println(p);
+            if(!p.isEmpty()){
+                if(!parametre) query = query +" where ";
+                query = query +"hora_sortida = \""+ p +"\"";
+                parametre = true;
+            }
+            
+            p = request.getParameter("desti");
             if(!"Qualsevol".equals(p)){
                 if(!parametre) query = query +" where ";
                 else query = query + " and ";
-                query = query + "estrelles = \""+ p +"\"";
+                query = query + "desti = \""+ p +"\"";
+                parametre = true;
+            }
+            
+            p = request.getParameter("hora_arribada");
+            out.println(p);
+            if(!p.isEmpty()){
+                if(!parametre) query = query +" where ";
+                query = query +"hora_arribada = \""+ p +"\"";
                 parametre = true;
             }
             
@@ -91,21 +107,19 @@ public class buscarVuelo extends HttpServlet {
             out.println("<h1>Resultats de la busqueda -Vols</h1>");
             out.println("<table summary=\"\">");
             out.println("<tr>");
-            out.println("<td>Nom</td><td>Cadena</td><td>carrer</td><td>numero</td><td>CP</td><td>ciutat</td><td>Provincia</td><td>Pais</td><td>nº Habitacions</td><td>Categoria</td>");
+            out.println("<td>nº Vol</td><td>Companyia</td><td>Origen</td><td>hora sortida</td><td>Desti</td><td>hora arribada</td>");
             out.println("</tr>");
             
             //out.println(query);
             ResultSet rs = statement.executeQuery(query);
             while (rs.next()){
                 out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+
-                        "</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+
-                        "</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getString(9)+
-                        "</td><td>"+rs.getString(10)+"</tr>");
+                        "</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6));
             }
             
             out.println("</table>");
             out.println("<br>");
-            out.println("&nbsp; <br> <a href=\"buscarHotel.jsp\">Torna a la busqueda d'hotels</a>");            
+            out.println("&nbsp; <br> <a href=\"buscarVuelo.jsp\">Torna a la busqueda de vols</a>");            
             out.println("&nbsp; <br> <a href=\"menu.html\">Menu</a>");
             out.println("<br>");
             out.println("</form>");

@@ -30,7 +30,7 @@
             <table summary="">
                 <tr>
                     <td>Nº vol:</td>
-                    <td><input name=numero_vol size=6 maxlength=6 value="000000"></td>
+                    <td><input name=numero_vol size=6 maxlength=6 ></td>
                     <td>Companyia:</td>
                     <td><select name=companyia>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
@@ -62,7 +62,7 @@
                         </select>
                     </td>
                     <td>Hora Sortida:</td>
-                    <td><input name=hora_sortida size=2 maxlength=2 value=12>H</td>
+                    <td><input name=hora_sortida size=2 maxlength=2>H</td>
                 </tr>
                 <tr>
                     <td>Destí:</td>
@@ -77,13 +77,15 @@
                         </select>
                     </td>
                     <td>Hora Arribada:</td>
-                    <td><input name=hora_arribada size=2 maxlength=2 value=12>H</td>
+                    <td><input name=hora_arribada size=2 maxlength=2>H</td>
                 </tr>                
             </table>
             &nbsp; <br>
             <input name=Busca type=submit value="Busca">
             <br>
         </form>
+        &nbsp; <br>
+        <a href="menu.html">Menu</a>
     </body>
     <% 
             connection.close();

@@ -29,7 +29,7 @@
             <table summary="">
                 <tr>
                     <td>Nom del hotel:</td>
-                    <td><input name=nom_hotel size=20 maxlength=20 value="NomHotel"></td>
+                    <td><input name=nom_hotel size=20 maxlength=20></td>
                     <td>Cadena hotelera:</td>
                     <td><select name=companyia>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
@@ -42,7 +42,7 @@
             ResultSet rs = statement.executeQuery("select distinct cadena as busca from hotels");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("busca"); %> > <% out.print(rs.getString("busca"));%> </option>    <%
+                %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
             }
 %>    
                         </select>
@@ -55,7 +55,7 @@
 <% 
             rs = statement.executeQuery("select distinct ciutat as busca from hotels");
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("busca"); %> > <% out.print(rs.getString("busca"));%> </option>    <%
+                %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
             }
 %>
                         </select>
@@ -73,7 +73,6 @@
                 </tr>
             </table>
             &nbsp; <br>
-            <input name=Busca type=submit value="Busca">
             <br>
         </form>
         &nbsp; <br>

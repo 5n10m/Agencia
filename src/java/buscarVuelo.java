@@ -6,6 +6,13 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,19 +36,80 @@ public class buscarVuelo extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ClassNotFoundException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
+        Class.forName("org.sqlite.JDBC");
+        Connection connection = null;
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            Statement statement = connection.createStatement();
+            String query = "select * from vols";
+            
+            Boolean parametre = false; 
+            
+            String p = request.getParameter("nom_hotel");
+            out.println(p);
+            if(!p.isEmpty()){
+                if(!parametre) query = query +" where ";
+                query = query +"nom = \""+ p +"\"";
+                parametre = true;
+            }
+            
+            p = request.getParameter("companyia");
+            if(!"Qualsevol".equals(p)){
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "cadena = \""+ p +"\"";
+                parametre = true;
+                
+            }
+            
+            p = request.getParameter("ciutat");
+            if(!"Qualsevol".equals(p)){
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "ciutat = \""+ p +"\"";
+                parametre = true;
+            }
+            
+            p = request.getParameter("clase");
+            if(!"Qualsevol".equals(p)){
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "estrelles = \""+ p +"\"";
+                parametre = true;
+            }
+            
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet buscarVuelo</title>");            
+            out.println("<title>Buscador de vols</title>");
+            out.println("<meta charset=\"UTF-8\">");
+            out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet buscarVuelo at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Resultats de la busqueda -Vols</h1>");
+            out.println("<table summary=\"\">");
+            out.println("<tr>");
+            out.println("<td>Nom</td><td>Cadena</td><td>carrer</td><td>numero</td><td>CP</td><td>ciutat</td><td>Provincia</td><td>Pais</td><td>nº Habitacions</td><td>Categoria</td>");
+            out.println("</tr>");
+            
+            //out.println(query);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+
+                        "</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+
+                        "</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getString(9)+
+                        "</td><td>"+rs.getString(10)+"</tr>");
+            }
+            
+            out.println("</table>");
+            out.println("<br>");
+            out.println("&nbsp; <br> <a href=\"buscarHotel.jsp\">Torna a la busqueda d'hotels</a>");            
+            out.println("&nbsp; <br> <a href=\"menu.html\">Menu</a>");
+            out.println("<br>");
+            out.println("</form>");
             out.println("</body>");
-            out.println("</html>");
         }
     }
 
@@ -57,7 +125,13 @@ public class buscarVuelo extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(buscarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(buscarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +145,13 @@ public class buscarVuelo extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(buscarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(buscarVuelo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

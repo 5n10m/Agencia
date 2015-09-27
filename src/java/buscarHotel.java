@@ -44,29 +44,46 @@ public class buscarHotel extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            String query = "select * from hotels where ";
+            String query = "select * from hotels";
+            
+            Boolean parametre = false; 
             
             String p = request.getParameter("nom_hotel");
             out.println(p);
             if(!p.isEmpty()){
-                query = query +"nom = \""+ p +"\",";
+                if(!parametre) query = query +" where ";
+                query = query +"nom = \""+ p +"\"";
+                parametre = true;
             }
             
             p = request.getParameter("companyia");
-            out.println(p);
             if(!"Qualsevol".equals(p)){
-                query = query + "cadena = \""+ p +"\",";
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "cadena = \""+ p +"\"";
+                parametre = true;
+                
             }
             
             p = request.getParameter("ciutat");
-            out.println(p);
             if(!"Qualsevol".equals(p)){
-                query = query + "ciutat = \""+ p +"\",";
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "ciutat = \""+ p +"\"";
+                parametre = true;
+            }
+            
+            p = request.getParameter("clase");
+            if(!"Qualsevol".equals(p)){
+                if(!parametre) query = query +" where ";
+                else query = query + " and ";
+                query = query + "estrelles = \""+ p +"\"";
+                parametre = true;
             }
             
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Login Agencia viatges</title>");
+            out.println("<title>Buscador d'hotels</title>");
             out.println("<meta charset=\"UTF-8\">");
             out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
             out.println("</head>");
@@ -74,19 +91,25 @@ public class buscarHotel extends HttpServlet {
             out.println("<h1>Resultats de la busqueda -Hotels</h1>");
             out.println("<table summary=\"\">");
             out.println("<tr>");
-            out.println("<td>Nom</td><td>Cadena</td><td>carrer</td><td>numero</td><td>CP</td><td>ciutat</td><td>Pais</td><td>nº Habitacions</td>");
+            out.println("<td>Nom</td><td>Cadena</td><td>carrer</td><td>numero</td><td>CP</td><td>ciutat</td><td>Provincia</td><td>Pais</td><td>nº Habitacions</td><td>Categoria</td>");
             out.println("</tr>");
             
-            out.println(query);
+            //out.println(query);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()){
+                out.println("<tr><td>"+rs.getString(1)+"</td><td>"+rs.getString(2)+"</td><td>"+rs.getString(3)+
+                        "</td><td>"+rs.getString(4)+"</td><td>"+rs.getString(5)+"</td><td>"+rs.getString(6)+
+                        "</td><td>"+rs.getString(7)+"</td><td>"+rs.getString(8)+"</td><td>"+rs.getString(9)+
+                        "</td><td>"+rs.getString(10)+"</tr>");
+            }
             
             out.println("</table>");
             out.println("<br>");
-            out.println("<input name=accedeix type=submit value=\"accedeix\">");
+            out.println("&nbsp; <br> <a href=\"buscarHotel.jsp\">Torna a la busqueda d'hotels</a>");            
+            out.println("&nbsp; <br> <a href=\"menu.html\">Menu</a>");
             out.println("<br>");
             out.println("</form>");
             out.println("</body>");
-            
-            ResultSet rs = statement.executeQuery(query);
         }
     }
     

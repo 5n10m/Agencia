@@ -43,7 +43,7 @@
             ResultSet rs = statement.executeQuery("select distinct companyia from vols");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("companyia"); %> > <% out.print(rs.getString("companyia"));%> </option>    <%
+                %>  <option VALUE= <% out.print(rs.getString("companyia")); %> > <% out.print(rs.getString("companyia"));%> </option>    <%
             }
                     %>    
                         </select>
@@ -56,7 +56,7 @@
                 <% rs = statement.executeQuery("select distinct origen from vols");
             
             while(rs.next()){
-                %>  <option VALUE= "<% rs.getString("origen"); %>" > <% out.print(rs.getString("origen"));%> </option>    <%
+                %>  <option VALUE= "<% out.print(rs.getString("origen"));%>" > <% out.print(rs.getString("origen"));%> </option>    <%
             }
                     %>
                         </select>
@@ -71,7 +71,7 @@
                            <% rs = statement.executeQuery("select distinct desti from vols");
             
             while(rs.next()){
-                %>  <option VALUE= <% rs.getString("desti"); %> > <% out.print(rs.getString("desti"));%> </option>    <%
+                %>  <option VALUE= <% out.print(rs.getString("desti")); %> > <% out.print(rs.getString("desti"));%> </option>    <%
             }
                     %>
                         </select>

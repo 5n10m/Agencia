@@ -44,7 +44,7 @@ public class altaHotel extends HttpServlet {
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
             Statement statement = connection.createStatement();
             String update = "insert into hotels values ( '"+ 
                     request.getParameter("nom_hotel") +"','"+

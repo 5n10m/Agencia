@@ -42,7 +42,7 @@ public class buscarVuelo extends HttpServlet {
         Connection connection = null;
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
             Statement statement = connection.createStatement();
             String query = "select * from vols";
             
@@ -102,12 +102,22 @@ public class buscarVuelo extends HttpServlet {
             out.println("<title>Buscador de vols</title>");
             out.println("<meta charset=\"UTF-8\">");
             out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            out.println("<style>\n" +
+                "table, td, th {\n" +
+                "    border: 1px solid darkcyan;\n" +
+                "}\n" +
+                "\n" +
+                "th {\n" +
+                "    background-color: blue;\n" +
+                "    color: white;\n" +
+                "}\n" +
+                "</style>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Resultats de la busqueda -Vols</h1>");
+            out.println("<h1>Resultats de la busqueda - Vols</h1>");
             out.println("<table summary=\"\">");
             out.println("<tr>");
-            out.println("<td>nº Vol</td><td>Companyia</td><td>Origen</td><td>hora sortida</td><td>Desti</td><td>hora arribada</td>");
+            out.println("<th>nº Vol</th><th>Companyia</th><th>Origen</th><th>hora sortida</th><th>Desti</th><th>hora arribada</th>");
             out.println("</tr>");
             
             //out.println(query);

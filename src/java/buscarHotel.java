@@ -42,7 +42,7 @@ public class buscarHotel extends HttpServlet {
         Connection connection = null;
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            connection = DriverManager.getConnection("jdbc:sqlite:"+System.getProperty("user.dir")+"\\datasqlite3.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
             Statement statement = connection.createStatement();
             String query = "select * from hotels";
             
@@ -86,12 +86,22 @@ public class buscarHotel extends HttpServlet {
             out.println("<title>Buscador d'hotels</title>");
             out.println("<meta charset=\"UTF-8\">");
             out.println("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">");
+            out.println("<style>\n" +
+                "table, td, th {\n" +
+                "    border: 1px solid darkcyan;\n" +
+                "}\n" +
+                "\n" +
+                "th {\n" +
+                "    background-color: blue;\n" +
+                "    color: white;\n" +
+                "}\n" +
+                "</style>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Resultats de la busqueda -Hotels</h1>");
-            out.println("<table summary=\"\">");
+            out.println("<h1>Resultats de la busqueda - Hotels</h1>");
+            out.println("<table border=\"1\">");
             out.println("<tr>");
-            out.println("<td>Nom</td><td>Cadena</td><td>carrer</td><td>numero</td><td>CP</td><td>ciutat</td><td>Provincia</td><td>Pais</td><td>nº Habitacions</td><td>Categoria</td>");
+            out.println("<th>Nom</th><th>Cadena</th><th>carrer</th><th>numero</th><th>CP</th><th>ciutat</th><th>Provincia</th><th>Pais</th><th>nº Habitacions</th><th>Categoria</th>");
             out.println("</tr>");
             
             //out.println(query);

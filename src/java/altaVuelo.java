@@ -42,35 +42,45 @@ public class altaVuelo extends HttpServlet {
         /* TODO output your page here. You may use following sample code. */
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            String update = "insert into vols"
-                    + " values ( '"+ 
-                    request.getParameter("numero_vol") +"','"+
-                    request.getParameter("companyia") +"','"+
-                    request.getParameter("origen") +"','"+
-                    request.getParameter("hora_sortida") +"','"+                    
-                    request.getParameter("desti") +"','"+
-                    request.getParameter("hora_arribada")+"');";
-            statement.executeUpdate(update);
-            
-            out.println("<p> Vol afegit amb exit <p>");
+            //Hem de controlar que els camps no estiguin buits, excepte companyia, origen i desti, que mai tindran valors nulls gracies al desplegable
+            String numero_vol = request.getParameter("numero_vol");
+            String hora_sortida = request.getParameter("hora_sortida");
+            String hora_arribada = request.getParameter("hora_arribada");
+            String update = "error";
+            if (numero_vol != null && !numero_vol.isEmpty()) {
+                if (hora_sortida != null && !hora_sortida.isEmpty()) {
+                    if (hora_arribada != null && !hora_arribada.isEmpty()) {
+                        update = "insert into vols"
+                                + " values ( '"+ 
+                                request.getParameter("numero_vol") +"','"+
+                                request.getParameter("companyia") +"','"+
+                                request.getParameter("origen") +"','"+
+                                request.getParameter("hora_sortida") +"','"+                    
+                                request.getParameter("desti") +"','"+
+                                request.getParameter("hora_arribada")+"');";
+                        statement.executeUpdate(update);
+                    }
+                }
+            }
+            else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit el vol </font></h3><p>");
+            if (update != "error") out.println("<p><h3><font color=#347C2C> El vol s'ha afegit amb exit </font></h3><p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
             connection.close();
         }
-        catch(SQLException e){
+        catch(SQLException e) {
             System.err.println(e.getMessage());
         }
-        finally{
-            try{
+        finally {
+            try {
                 if(connection != null)
                     connection.close();
             }
-            catch(SQLException e)
-            {
-                // connection close failed.
+            catch(SQLException e) {
+                //Error en tancar la connexio
                 System.err.println(e.getMessage());
             }
         }

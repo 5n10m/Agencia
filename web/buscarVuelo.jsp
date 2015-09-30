@@ -25,84 +25,85 @@
     </head>
     <body>
         <h1>Buscador de vols</h1>
-        &nbsp; <br>
+        <h2>Ompli els camps per filtrar la cerca</h2>
+        <br>
         <form action="buscarVuelo" method="GET">
-            <table summary="">
+            <table>
                 <tr>
-                    <td>Nº vol:</td>
-                    <td><input name=numero_vol size=6 maxlength=6 ></td>
-                    <td>Companyia:</td>
+                    <th>Numero de vol:</th>
+                    <td><center><input name=numero_vol size=6 maxlength=6 ></center></td>
+                    <th>Companyia:</th>
                     <td><select name=companyia>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
-                    <%
-        Class.forName("org.sqlite.JDBC");
-        Connection connection = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select distinct companyia from vols");
-            
-            while(rs.next()){
-                %>  <option VALUE= <% out.print(rs.getString("companyia")); %> > <% out.print(rs.getString("companyia"));%> </option>    <%
-            }
-                    %>    
+                            <%
+                                Class.forName("org.sqlite.JDBC");
+                                Connection connection = null;
+                                try {
+                                    connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
+                                    Statement statement = connection.createStatement();
+                                    ResultSet rs = statement.executeQuery("select distinct companyia from vols");
+
+                                    while(rs.next()){
+                                        %>  <option VALUE= <% out.print(rs.getString("companyia")); %> > <% out.print(rs.getString("companyia"));%> </option>    <%
+                                    }
+                            %>    
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>Origen:</td>
+                    <th>Ciutat d'origen:</th>
                     <td><select name=origen>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
-                <% rs = statement.executeQuery("select distinct origen from vols");
+                            <% rs = statement.executeQuery("select distinct origen from vols");
             
-            while(rs.next()){
-                %>  <option VALUE= "<% out.print(rs.getString("origen"));%>" > <% out.print(rs.getString("origen"));%> </option>    <%
-            }
-                    %>
+                            while(rs.next()){
+                                %>  <option VALUE= "<% out.print(rs.getString("origen"));%>" > <% out.print(rs.getString("origen"));%> </option>    <%
+                            }
+                            %>
                         </select>
                     </td>
-                    <td>Hora Sortida:</td>
-                    <td><input name=hora_sortida size=2 maxlength=2>H</td>
+                    <th>Hora de sortida:</th>
+                    <th><input name=hora_sortida size=2 maxlength=2> h.</th>
                 </tr>
                 <tr>
-                    <td>Destí:</td>
+                    <th>Ciutat destí:</th>
                     <td><select name=desti>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
                            <% rs = statement.executeQuery("select distinct desti from vols");
             
-            while(rs.next()){
-                %>  <option VALUE= <% out.print(rs.getString("desti")); %> > <% out.print(rs.getString("desti"));%> </option>    <%
-            }
-                    %>
+                            while(rs.next()){
+                                %>  <option VALUE= <% out.print(rs.getString("desti")); %> > <% out.print(rs.getString("desti"));%> </option>    <%
+                            }
+                            %>
                         </select>
                     </td>
-                    <td>Hora Arribada:</td>
-                    <td><input name=hora_arribada size=2 maxlength=2>H</td>
+                    <th>Hora d'arribada:</th>
+                    <th><input name=hora_arribada size=2 maxlength=2> h.</th>
                 </tr>                
             </table>
-            &nbsp; <br>
-            <input name=Busca type=submit value="Busca">
+            <br>
+            <br>
+            <input name=Busca type=submit value="Buscar">
             <br>
         </form>
-        &nbsp; <br>
-        <a href="menu.html">Menu</a>
+        <br>
+        <h3><a href="menu.html">Tornar al menu</a></h3>
     </body>
     <% 
-            connection.close();
-      }
-        catch(SQLException e){
+        connection.close();
+    }
+    catch(SQLException e) {
+        System.err.println(e.getMessage());
+    }
+    finally {
+        try {
+            if(connection != null)
+                connection.close();
+        }
+        catch(SQLException e) {
+            //Error en tancar la connexio
             System.err.println(e.getMessage());
         }
-        finally{
-            try{
-                if(connection != null)
-                    connection.close();
-            }
-            catch(SQLException e)
-            {
-                // connection close failed.
-                System.err.println(e.getMessage());
-            }
-        }      
+    }
     %>
 </html>

@@ -24,43 +24,44 @@
     </head>
     <body>
         <h1>Buscador d'hotels</h1>
-        &nbsp; <br>
+        <h2>Ompli els camps per filtrar la cerca</h2>
+        <br>
         <form action="buscarHotel" method="GET">
             <table summary="">
                 <tr>
-                    <td>Nom del hotel:</td>
+                    <th>Nom de l'hotel:</th>
                     <td><input name=nom_hotel size=20 maxlength=20></td>
-                    <td>Cadena hotelera:</td>
+                    <th>Cadena hotelera:</th>
                     <td><select name=companyia>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
-<%
-        Class.forName("org.sqlite.JDBC");
-        Connection connection = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select distinct cadena as busca from hotels");
-            
-            while(rs.next()){
-                %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
-            }
-%>    
+                    <%
+                            Class.forName("org.sqlite.JDBC");
+                            Connection connection = null;
+                            try{
+                                connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
+                                Statement statement = connection.createStatement();
+                                ResultSet rs = statement.executeQuery("select distinct cadena as busca from hotels");
+
+                                while(rs.next()){
+                                    %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
+                                }
+                    %>    
                         </select>
                     </td>
                 </tr>
                 <tr>
-                    <td>Ciutat:</td>
+                    <th>Ciutat:</th>
                     <td><select name=ciutat>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
-<% 
-            rs = statement.executeQuery("select distinct ciutat as busca from hotels");
-            while(rs.next()){
-                %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
-            }
-%>
+                    <% 
+                                rs = statement.executeQuery("select distinct ciutat as busca from hotels");
+                                while(rs.next()){
+                                    %>  <option VALUE= <% out.print(rs.getString("busca")); %> > <% out.print(rs.getString("busca"));%> </option>    <%
+                                }
+                    %>
                         </select>
                     </td>
-                    <td>Estrelles:</td>
+                    <th>Estrelles:</th>
                     <td><select name=clase>
                             <option selected VALUE=Qualsevol> Qualsevol</option>
                             <option VALUE=1>*
@@ -72,29 +73,29 @@
                     </td>
                 </tr>
             </table>
-            &nbsp; <br>
-            <input name=Busca type=submit value="Busca">
+            <br>
+            <br>
+            <input name=Busca type=submit value="Buscar">
             <br>
         </form>
-        &nbsp; <br>
-        <a href="menu.html">Menu</a>
+        <br>
+        <h3><a href="menu.html">Tornar al menu</a></h3>
     </body>
-     <% 
-            connection.close();
-      }
-        catch(SQLException e){
+    <% 
+        connection.close();
+    }
+    catch(SQLException e) {
+        System.err.println(e.getMessage());
+    }
+    finally {
+        try {
+            if(connection != null)
+                connection.close();
+        }
+        catch(SQLException e) {
+            //Error en tancar la connexio
             System.err.println(e.getMessage());
         }
-        finally{
-            try{
-                if(connection != null)
-                    connection.close();
-            }
-            catch(SQLException e)
-            {
-                // connection close failed.
-                System.err.println(e.getMessage());
-            }
-        }      
+    }
     %>
 </html>

@@ -41,38 +41,35 @@ public class login extends HttpServlet {
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
         try{
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery("select count (*) as total from usuaris where user = \""+ request.getParameter("userid") +"\" and  password = \""+ request.getParameter("password") +"\"");
+            ResultSet rs = statement.executeQuery("select count (*) as total from usuaris where user = \""+ request.getParameter("usuari") +"\" and  password = \""+ request.getParameter("password") +"\"");
             
-            //.println(rs.getStatement());
-            
-            if("1".equals(rs.getString("total"))){
-                out.println("<p> Login correcte <p>");
+            if("1".equals(rs.getString("total"))) {      //Si les credencials introduides coincideixen
+                out.println("<p><h3><font color=#347C2C> Hola! El teu login ha sigut un exit. </font></h3><p>");
                 RequestDispatcher rd = request.getRequestDispatcher("menu.html");
                 rd.include(request, response);
             }
-            else{
-                out.println("<p> Usuari i/o passwd incorrecte <p>");
+            else {
+                out.println("<p><h3><font color=#F70D1A> Usuari i/o password introduit/s incorrecte/s. Torni a intentar-ho. </font></h3><p><br>");
                 RequestDispatcher rd = request.getRequestDispatcher("index.html");
                 rd.include(request, response);
             }
             connection.close();
         }
-        catch(SQLException e){
+        catch(SQLException e) {
             System.err.println(e.getMessage());
         }
-        finally{
-            try{
+        finally {
+            try {
                 if(connection != null)
                     connection.close();
             }
-            catch(SQLException e)
-            {
-                // connection close failed.
+            catch(SQLException e) {
+                //Error en tancar la connexio
                 System.err.println(e.getMessage());
             }
-        }     
+        }
     }
     
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

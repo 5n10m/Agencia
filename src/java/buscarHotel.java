@@ -42,7 +42,7 @@ public class buscarHotel extends HttpServlet {
         Connection connection = null;
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
             Statement statement = connection.createStatement();
             String query = "select * from hotels";
             
@@ -101,7 +101,7 @@ public class buscarHotel extends HttpServlet {
             out.println("<h1>Resultats de la busqueda - Hotels</h1>");
             out.println("<table border=\"1\">");
             out.println("<tr>");
-            out.println("<th>Nom</th><th>Cadena</th><th>carrer</th><th>numero</th><th>CP</th><th>ciutat</th><th>Provincia</th><th>Pais</th><th>nº Habitacions</th><th>Categoria</th>");
+            out.println("<th>Nom</th><th>Cadena</th><th>Carrer</th><th>Numero</th><th>Codi Postal</th><th>Ciutat</th><th>Provincia</th><th>Pais</th><th>Numero d'habitacions</th><th>Categoria</th>");
             out.println("</tr>");
             
             //out.println(query);
@@ -115,8 +115,8 @@ public class buscarHotel extends HttpServlet {
             
             out.println("</table>");
             out.println("<br>");
-            out.println("&nbsp; <br> <a href=\"buscarHotel.jsp\">Torna a la busqueda d'hotels</a>");            
-            out.println("&nbsp; <br> <a href=\"menu.html\">Menu</a>");
+            out.println("<br> <a href=\"buscarHotel.jsp\">Tornar a la busqueda d'hotels</a>");            
+            out.println("<br> <h3><a href=\"menu.html\">Tornar al menu</a></h3>");
             out.println("<br>");
             out.println("</form>");
             out.println("</body>");

@@ -43,38 +43,63 @@ public class altaHotel extends HttpServlet {
         /* TODO output your page here. You may use following sample code. */
         Class.forName("org.sqlite.JDBC");
         Connection connection = null;
-        try{
-            connection = DriverManager.getConnection("jdbc:sqlite:F:\\windows\\AD\\P2\\Agencia\\datasqlite3.db");
+        try {
+            connection = DriverManager.getConnection("jdbc:sqlite:C:\\Users\\Rio\\Dropbox\\UPC\\AD\\P2\\datasqlite3.db");
             Statement statement = connection.createStatement();
-            String update = "insert into hotels values ( '"+ 
-                    request.getParameter("nom_hotel") +"','"+
-                    request.getParameter("companyia") +"','"+
-                    request.getParameter("carrer") +"','"+
-                    request.getParameter("numero") +"','"+
-                    request.getParameter("codi_postal") +"','"+
-                    request.getParameter("ciutat") +"','"+
-                    request.getParameter("provincia") +"','"+
-                    request.getParameter("pais") +"','"+
-                    request.getParameter("num_habitacions") +"','"+
-                    request.getParameter("clase")+"');";
-            statement.executeUpdate(update);
-            
-            out.println("<p> Hotel afegit amb exit <p>");
+            //Hem de controlar que els camps no estiguin buits, excepte cadena i estrelles, que mai tindran valors nulls gracies al desplegable
+            String nom_hotel = request.getParameter("nom_hotel");
+            String carrer = request.getParameter("carrer");
+            String numero = request.getParameter("numero");
+            String codi_postal = request.getParameter("codi_postal");
+            String ciutat = request.getParameter("ciutat");
+            String provincia = request.getParameter("provincia");
+            String pais = request.getParameter("pais");
+            String num_habitacions = request.getParameter("num_habitacions");
+            String update = "error";
+            if (nom_hotel != null && !nom_hotel.isEmpty()) {
+                if (carrer != null && !carrer.isEmpty()) {
+                    if (numero != null && !numero.isEmpty()) {
+                        if (codi_postal != null && !codi_postal.isEmpty()) {
+                            if (ciutat != null && !ciutat.isEmpty()) {
+                                if (provincia != null && !provincia.isEmpty()) {
+                                    if (pais != null && !pais.isEmpty()) {
+                                        if (num_habitacions != null && !num_habitacions.isEmpty()) {
+                                            update = "insert into hotels values ( '"+ 
+                                                    request.getParameter("nom_hotel") +"','"+
+                                                    request.getParameter("companyia") +"','"+
+                                                    request.getParameter("carrer") +"','"+
+                                                    request.getParameter("numero") +"','"+
+                                                    request.getParameter("codi_postal") +"','"+
+                                                    request.getParameter("ciutat") +"','"+
+                                                    request.getParameter("provincia") +"','"+
+                                                    request.getParameter("pais") +"','"+
+                                                    request.getParameter("num_habitacions") +"','"+
+                                                    request.getParameter("clase")+"');";
+                                            statement.executeUpdate(update);
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit l'hotel </font></h3><p>");
+            if (update != "error") out.println("<p><h3><font color=#347C2C> L'hotel s'ha afegit amb exit </font></h3><p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
             connection.close();
         }
-        catch(SQLException e){
+        catch(SQLException e) {
             System.err.println(e.getMessage());
         }
-        finally{
-            try{
+        finally {
+            try {
                 if(connection != null)
                     connection.close();
             }
-            catch(SQLException e)
-            {
-                // connection close failed.
+            catch(SQLException e) {
+                //Error en tancar la connexio
                 System.err.println(e.getMessage());
             }
         }

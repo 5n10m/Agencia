@@ -56,26 +56,32 @@ public class altaHotel extends HttpServlet {
             String pais = request.getParameter("pais");
             String num_habitacions = request.getParameter("num_habitacions");
             String update = "error";
-            if (nom_hotel != null && !nom_hotel.isEmpty()) {
-                if (carrer != null && !carrer.isEmpty()) {
-                    if (numero != null && !numero.isEmpty()) {
-                        if (codi_postal != null && !codi_postal.isEmpty()) {
-                            if (ciutat != null && !ciutat.isEmpty()) {
-                                if (provincia != null && !provincia.isEmpty()) {
-                                    if (pais != null && !pais.isEmpty()) {
-                                        if (num_habitacions != null && !num_habitacions.isEmpty()) {
-                                            update = "insert into hotels values ( '"+ 
-                                                    request.getParameter("nom_hotel") +"','"+
-                                                    request.getParameter("companyia") +"','"+
-                                                    request.getParameter("carrer") +"','"+
-                                                    request.getParameter("numero") +"','"+
-                                                    request.getParameter("codi_postal") +"','"+
-                                                    request.getParameter("ciutat") +"','"+
-                                                    request.getParameter("provincia") +"','"+
-                                                    request.getParameter("pais") +"','"+
-                                                    request.getParameter("num_habitacions") +"','"+
-                                                    request.getParameter("clase")+"');";
-                                            statement.executeUpdate(update);
+            ResultSet rs = statement.executeQuery("select count (*) as total from hotels where nom = \""+ request.getParameter("nom_hotel") +"\"");
+            if("1".equals(rs.getString("total"))) {
+                out.println("<p><h3><font color=#F70D1A> ERROR: Ja existeix el vol a la base de dades </font></h3><p>");
+            }
+            else {
+                if (nom_hotel != null && !nom_hotel.isEmpty()) {
+                    if (carrer != null && !carrer.isEmpty()) {
+                        if (numero != null && !numero.isEmpty()) {
+                            if (codi_postal != null && !codi_postal.isEmpty()) {
+                                if (ciutat != null && !ciutat.isEmpty()) {
+                                    if (provincia != null && !provincia.isEmpty()) {
+                                        if (pais != null && !pais.isEmpty()) {
+                                            if (num_habitacions != null && !num_habitacions.isEmpty()) {
+                                                update = "insert into hotels values ( '"+ 
+                                                        request.getParameter("nom_hotel") +"','"+
+                                                        request.getParameter("companyia") +"','"+
+                                                        request.getParameter("carrer") +"','"+
+                                                        request.getParameter("numero") +"','"+
+                                                        request.getParameter("codi_postal") +"','"+
+                                                        request.getParameter("ciutat") +"','"+
+                                                        request.getParameter("provincia") +"','"+
+                                                        request.getParameter("pais") +"','"+
+                                                        request.getParameter("num_habitacions") +"','"+
+                                                        request.getParameter("clase")+"');";
+                                                statement.executeUpdate(update);
+                                            }
                                         }
                                     }
                                 }
@@ -83,9 +89,9 @@ public class altaHotel extends HttpServlet {
                         }
                     }
                 }
+                if (update != "error") out.println("<p><h3><font color=#347C2C> L'hotel s'ha afegit amb exit </font></h3><p>");
+                else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit l'hotel </font></h3><p>");
             }
-            else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit l'hotel </font></h3><p>");
-            if (update != "error") out.println("<p><h3><font color=#347C2C> L'hotel s'ha afegit amb exit </font></h3><p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
             connection.close();

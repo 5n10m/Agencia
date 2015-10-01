@@ -115,7 +115,7 @@ public class buscarVuelo extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Resultats de la busqueda - Vols</h1>");
-            out.println("<table summary=\"\">");
+            out.println("<table>");
             out.println("<tr>");
             out.println("<th>Numero de vol</th><th>Companyia</th><th>Origen</th><th>Hora de sortida</th><th>Desti</th><th>Hora d'arribada</th>");
             out.println("</tr>");

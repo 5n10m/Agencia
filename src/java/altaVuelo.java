@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -50,23 +51,29 @@ public class altaVuelo extends HttpServlet {
             String hora_sortida = request.getParameter("hora_sortida");
             String hora_arribada = request.getParameter("hora_arribada");
             String update = "error";
-            if (numero_vol != null && !numero_vol.isEmpty()) {
-                if (hora_sortida != null && !hora_sortida.isEmpty()) {
-                    if (hora_arribada != null && !hora_arribada.isEmpty()) {
-                        update = "insert into vols"
-                                + " values ( '"+ 
-                                request.getParameter("numero_vol") +"','"+
-                                request.getParameter("companyia") +"','"+
-                                request.getParameter("origen") +"','"+
-                                request.getParameter("hora_sortida") +"','"+                    
-                                request.getParameter("desti") +"','"+
-                                request.getParameter("hora_arribada")+"');";
-                        statement.executeUpdate(update);
+            ResultSet rs = statement.executeQuery("select count (*) as total from vols where numero = \""+ request.getParameter("numero_vol") +"\"");
+            if("1".equals(rs.getString("total"))) {
+                out.println("<p><h3><font color=#F70D1A> ERROR: Ja existeix el vol a la base de dades </font></h3><p>");
+            }
+            else {
+                if (numero_vol != null && !numero_vol.isEmpty()) {
+                    if (hora_sortida != null && !hora_sortida.isEmpty()) {
+                        if (hora_arribada != null && !hora_arribada.isEmpty()) {
+                            update = "insert into vols"
+                                    + " values ( '"+ 
+                                    request.getParameter("numero_vol") +"','"+
+                                    request.getParameter("companyia") +"','"+
+                                    request.getParameter("origen") +"','"+
+                                    request.getParameter("hora_sortida") +"','"+                    
+                                    request.getParameter("desti") +"','"+
+                                    request.getParameter("hora_arribada")+"');";
+                            statement.executeUpdate(update);
+                        }
                     }
                 }
+                if (update != "error") out.println("<p><h3><font color=#347C2C> El vol s'ha afegit amb exit </font></h3><p>");
+                else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit el vol </font></h3><p>");
             }
-            else out.println("<p><h3><font color=#F70D1A> ERROR: Algun camp estava buit. No s'ha afegit el vol </font></h3><p>");
-            if (update != "error") out.println("<p><h3><font color=#347C2C> El vol s'ha afegit amb exit </font></h3><p>");
             RequestDispatcher rd = request.getRequestDispatcher("menu.html");
             rd.include(request, response);
             connection.close();

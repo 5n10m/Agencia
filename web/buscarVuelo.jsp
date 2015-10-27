@@ -63,7 +63,33 @@
                         </select>
                     </td>
                     <th>Hora de sortida:</th>
-                    <th><input name=hora_sortida size=2 maxlength=2> h.</th>
+                    <td><select name=hora_sortida>
+                            <option selected VALUE=00>00
+                            <option VALUE=01>01
+                            <option VALUE=02>02
+                            <option VALUE=03>03
+                            <option VALUE=04>04
+                            <option VALUE=05>05
+                            <option VALUE=06>06
+                            <option VALUE=07>07
+                            <option VALUE=08>08
+                            <option VALUE=09>09
+                            <option VALUE=10>10
+                            <option VALUE=11>11
+                            <option VALUE=12>12
+                            <option VALUE=13>13
+                            <option VALUE=14>14
+                            <option VALUE=15>15
+                            <option VALUE=16>16
+                            <option VALUE=17>17
+                            <option VALUE=18>18
+                            <option VALUE=19>19
+                            <option VALUE=20>20
+                            <option VALUE=21>21
+                            <option VALUE=22>22
+                            <option VALUE=23>23
+                        </select>
+                    </td>
                 </tr>
                 <tr>
                     <th>Ciutat destí:</th>
@@ -78,7 +104,33 @@
                         </select>
                     </td>
                     <th>Hora d'arribada:</th>
-                    <th><input name=hora_arribada size=2 maxlength=2> h.</th>
+                    <td><select name=hora_arribada>
+                            <option selected VALUE=00>00
+                            <option VALUE=01>01
+                            <option VALUE=02>02
+                            <option VALUE=03>03
+                            <option VALUE=04>04
+                            <option VALUE=05>05
+                            <option VALUE=06>06
+                            <option VALUE=07>07
+                            <option VALUE=08>08
+                            <option VALUE=09>09
+                            <option VALUE=10>10
+                            <option VALUE=11>11
+                            <option VALUE=12>12
+                            <option VALUE=13>13
+                            <option VALUE=14>14
+                            <option VALUE=15>15
+                            <option VALUE=16>16
+                            <option VALUE=17>17
+                            <option VALUE=18>18
+                            <option VALUE=19>19
+                            <option VALUE=20>20
+                            <option VALUE=21>21
+                            <option VALUE=22>22
+                            <option VALUE=23>23
+                        </select>
+                    </td>
                 </tr>                
             </table>
             <br>

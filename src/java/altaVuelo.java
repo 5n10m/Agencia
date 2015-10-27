@@ -49,7 +49,9 @@ public class altaVuelo extends HttpServlet {
             //Hem de controlar que els camps no estiguin buits, excepte companyia, origen i desti, que mai tindran valors nulls gracies al desplegable
             String numero_vol = request.getParameter("numero_vol");
             String hora_sortida = request.getParameter("hora_sortida");
+            //int sortida_int = Integer.parseInt(hora_sortida);
             String hora_arribada = request.getParameter("hora_arribada");
+            //int arribada_int = Integer.parseInt(hora_arribada);
             String update = "error";
             ResultSet rs = statement.executeQuery("select count (*) as total from vols where numero = \""+ request.getParameter("numero_vol") +"\"");
             if("1".equals(rs.getString("total"))) {
@@ -58,7 +60,9 @@ public class altaVuelo extends HttpServlet {
             else {
                 if (numero_vol != null && !numero_vol.isEmpty()) {
                     if (hora_sortida != null && !hora_sortida.isEmpty()) {
+                    //if (hora_sortida != null && !hora_sortida.isEmpty() && sortida_int >= 00 && sortida_int <= 23) {
                         if (hora_arribada != null && !hora_arribada.isEmpty()) {
+                        //if (hora_arribada != null && !hora_arribada.isEmpty() && arribada_int >= 00 && arribada_int <= 23) {
                             update = "insert into vols"
                                     + " values ( '"+ 
                                     request.getParameter("numero_vol") +"','"+

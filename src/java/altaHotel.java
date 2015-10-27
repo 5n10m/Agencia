@@ -58,7 +58,7 @@ public class altaHotel extends HttpServlet {
             String update = "error";
             ResultSet rs = statement.executeQuery("select count (*) as total from hotels where nom = \""+ request.getParameter("nom_hotel") +"\"");
             if("1".equals(rs.getString("total"))) {
-                out.println("<p><h3><font color=#F70D1A> ERROR: Ja existeix el vol a la base de dades </font></h3><p>");
+                out.println("<p><h3><font color=#F70D1A> ERROR: Ja existeix l'hotel a la base de dades </font></h3><p>");
             }
             else {
                 if (nom_hotel != null && !nom_hotel.isEmpty()) {

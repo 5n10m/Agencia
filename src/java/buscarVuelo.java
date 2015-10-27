@@ -75,7 +75,8 @@ public class buscarVuelo extends HttpServlet {
             
             p = request.getParameter("hora_sortida");
             out.println(p);
-            if(!p.isEmpty()){
+            //if(!p.isEmpty()){
+            if(!p.equals("Qualsevol")){
                 if(!parametre) query = query +" where ";
                 query = query +"hora_sortida = \""+ p +"\"";
                 parametre = true;
@@ -91,7 +92,8 @@ public class buscarVuelo extends HttpServlet {
             
             p = request.getParameter("hora_arribada");
             out.println(p);
-            if(!p.isEmpty()){
+            //if(!p.isEmpty()){
+            if(!p.equals("Qualsevol")){
                 if(!parametre) query = query +" where ";
                 query = query +"hora_arribada = \""+ p +"\"";
                 parametre = true;
@@ -129,7 +131,7 @@ public class buscarVuelo extends HttpServlet {
             
             out.println("</table>");
             out.println("<br>");
-            out.println("<br> <a href=\"buscarHotel.jsp\">Tornar a la busqueda de vols</a>");            
+            out.println("<br> <a href=\"buscarVuelo.jsp\">Tornar a la busqueda de vols</a>");            
             out.println("<br> <h3><a href=\"menu.html\">Tornar al menu</a></h3>");
             out.println("<br>");
             out.println("</form>");

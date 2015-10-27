@@ -64,7 +64,8 @@
                     </td>
                     <th>Hora de sortida:</th>
                     <td><select name=hora_sortida>
-                            <option selected VALUE=00>00
+                            <option selected VALUE=Qualsevol>Qualsevol
+                            <option VALUE=00>00
                             <option VALUE=01>01
                             <option VALUE=02>02
                             <option VALUE=03>03
@@ -105,7 +106,8 @@
                     </td>
                     <th>Hora d'arribada:</th>
                     <td><select name=hora_arribada>
-                            <option selected VALUE=00>00
+                            <option selected VALUE=Qualsevol>Qualsevol
+                            <option VALUE=00>00
                             <option VALUE=01>01
                             <option VALUE=02>02
                             <option VALUE=03>03
